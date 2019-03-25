@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { connect } from "react-redux";
 
+
+
+@connect(mapStateToProps)
 class App extends Component {
   render() {
     return (
@@ -24,6 +28,11 @@ class App extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+   console.log('state',state)
+ return { counter: state.counter }
+};
 
 export default App;
 
