@@ -8,6 +8,24 @@ import store from './store.js';
 import { addToCart }  from './actions/cart-actions';
 import { Provider } from 'react-redux';
 
+// const o1={a:{d:1},b:2}
+// const o2={c:1,d:2}
+// const o3={...o1,...o2}
+
+// o1.a.d=555
+// console.log('o1',o1)
+// console.log('o2',o2)
+// console.log('o3',o3)
+
+
+
+
+
+
+
+
+
+
 
 let unsubscribe = store.subscribe(() =>
   console.log('unsubscribe',store.getState())

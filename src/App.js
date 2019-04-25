@@ -2,11 +2,49 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { connect } from "react-redux";
-
-
-
-@connect(mapStateToProps)
+import produce from "immer"
 class App extends Component {
+  state = {
+    newTags: [],
+    inputVisible: false,
+    inputValue: '',
+  };
+ 
+ componentDidMount() {
+  console.log('componentDidMount')
+ 
+ const obj1 = {
+       todo: "Learn typescript1",
+       done: true,
+       id: '1',
+       list: {
+         todo: "Try immer1",
+         done: false
+       },
+       list1: {
+         todo: "Try immer1",
+         done: false
+      }
+}
+
+const obj2 = produce(obj1, nextData => {
+    nextData.list.todo = '我改变了了数据';
+});
+const obj3 = Object.assign({}, obj1) // {... obj1}
+
+console.log(obj1);
+console.log(obj3);
+
+
+if(obj1.list1 === obj3.list1) {                                                                                                                      
+  console.log('obj1.list1等于obj2.list1'); //相等                                                                                                                     
+}  
+if(obj1 === obj3) {                                                                                                                      
+  console.log('obj1等于obj3'); //相等                                                                                                                     
+} 
+
+ }
+
   render() {
     return (
       <div className="App">
