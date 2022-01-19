@@ -3,47 +3,46 @@ import logo from './logo.svg';
 import './App.css';
 
 
-//  class Father extends React.PureComponent {
-//     state = {
-//         count: 1,
-//     };
-//     onClick = () => {
-//         const { count } = this.state;
-//         this.setState({
-//             count:1,
-//         });
-//     };
-//     render() {
-//         const { count } = this.state;
-//         console.log('father render');
-//         return (
-//             <div>
-//                 <Demo1 count={count} />
-//                 <div onClick={this.onClick}>测试</div>
-//             </div>
-//         );
-//     }
-// }
- 
-function Father() {
-    const [count, setCount] = useState(1);
-    const [value, setValue] = useState(1);
-    console.log('father render')
-    return (
-        <div>
-            <Demo1 count={count} />
-            <div>value{value}</div>
-            <div
-                onClick={() => {
-                  //  setValue(value + 1);
-                 setCount(count + 1);
-                }}
-            >
-                测试
+ class Father extends Component {
+    state = {
+        count: 1,
+    };
+    onClick = () => {
+        const { count } = this.state;
+        console.log('this.state',this.state)
+        this.setState({count:2});
+    };
+    render() {
+        const { count } = this.state;
+        console.log('father render');
+        return (
+            <div>
+                <Demo1 count={count} />
+                <div onClick={this.onClick}>测试</div>
             </div>
-        </div>
-    );
+        );
+    }
 }
+ 
+// function Father() {
+//     const [count, setCount] = useState(1);
+//     const [value, setValue] = useState(1);
+//     console.log('father render')
+//     return (
+//         <div>
+//             <Demo1 count={count} />
+//             <div>value{value}</div>
+//             <div
+//                 onClick={() => {
+//                   //  setValue(value + 1);
+//                  setCount(count + 1);
+//                 }}
+//             >
+//                 测试
+//             </div>
+//         </div>
+//     );
+// }
  
  
 
@@ -53,13 +52,36 @@ function Father() {
 }
 
 const Demo1 = React.memo((props) => {
+
+   const [count, setCount] = useState(1);
+
+const onClick=()=>{
+  setCount(count)
+}
+
+
   console.log(props, 'props');
-    return <div>{props.count}</div>;
+    return <div>{props.count}
+    ...<div onClick={onClick}>
+      4455
+    </div>
+    </div>;
 })
 //  function Demo1(props: Props) {
-//     console.log(props, 'props');
-//     return <div>{props.count}</div>;
+//    const [count, setCount] = useState(1);
+
+// const onClick=()=>{
+//   setCount(count)
 // }
+
+
+//   console.log(props, 'props');
+//     return <div>{props.count}
+//     ...<div onClick={onClick}>
+//       4455
+//     </div>
+//     </div>;
+//  }
 
  
  
