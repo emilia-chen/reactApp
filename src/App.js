@@ -1,28 +1,150 @@
-import React, { Component, useState,memo} from 'react';
+import React, { useMemo,Component,useCallback, useState,memo} from 'react';
 import logo from './logo.svg';
 import './App.css';
+//场景10
+function Father() {
+    const [count, setCount] = useState(0);
+    const [value, setValue] = useState(0);
+   
+const [data, setData]=useState({
+   name: "Peter",
+   age: 'mas'
+});
+    // const userInfo ={
+    //    name: "Peter",
+    //    age: 'mas'
+    // }
+   const test= useCallback(() => {
+      console.log('test')
+   }, []);
+ const userInfo = useMemo(() => {
+   console.log('userInfo')
+  return data;
+}, [data]);
 
 
- class Father extends Component {
-    state = {
-        count: 1,
-    };
-    onClick = () => {
-        const { count } = this.state;
-        console.log('this.state',this.state)
-        this.setState({count:2});
-    };
-    render() {
-        const { count } = this.state;
-        console.log('father render');
-        return (
+  // const [userInfo, setUserInfo] = useState({
+  //      name: "Peter",
+  //      age: 'mas'
+  // });
+    return (
+        <div>
             <div>
-                <Demo1 count={count} />
-                <div onClick={this.onClick}>测试</div>
+                <Demo2 test={test} userInfo={userInfo} b='44' />
             </div>
-        );
-    }
+            <div>
+                {value}
+                <div
+                    onClick={() => {
+                      
+              //setData({...data})
+                        setValue(value + 1);
+             //   userInfo.name='444'
+
+               // setUserInfo(userInfo)
+                    }}
+                >相册</div>
+            </div>
+        </div>
+    );
 }
+  const Demo2 = React.memo((props) => {
+   const { userInfo } = props;
+    console.log('sub render',props);
+    return (
+        <>
+            <span>{userInfo.count}</span>
+        </>
+    );
+  })
+ 
+// const Demo2=function(props){
+//  const { userInfo } = props;
+//     console.log('sub render',props);
+//     return (
+//         <>
+//             <span>{userInfo.count}</span>
+//         </>)
+// }
+//场景9
+//  function Father() {
+//   const [count1, setCount1] = useState(0);
+//   const [count2, setCount2] = useState(0);
+ 
+
+//   const handleClickButton1 = () => {
+//     setCount1(count1 + 1);
+//   };
+ 
+ 
+//   const handleClickButton2 = useCallback(() => {
+   
+//     setCount2(count2 + 1);
+//      console.log('useback',count2)
+//   },[]);
+ 
+//     // const handleClickButton2 = () => {
+//     //     setCount2(count2+ 1);
+//     // };
+//  console.log('father',count2)
+//   return (
+//     <div>
+//       <div>
+//         <Button onClickButton={handleClickButton1}>Button1</Button>
+//       </div>
+//       <div>
+//         <Button count={count2} onClickButton={handleClickButton2}>Button2</Button>
+//       </div>
+//     </div>
+//   );
+// }
+ 
+//  const Button = React.memo((props) => {
+// console.log('memo',props)
+// const { onClickButton, children } = props;
+//     return (
+//         <>
+//             <div onClick={onClickButton}>{children}</div>
+//             <span>{Math.random()}</span>
+//         </>
+//     );
+//   })
+
+
+// const Button=function(props){
+// console.log('memo')
+// const { onClickButton, children } = props;
+//     return (
+//         <>
+//             <div onClick={onClickButton}>{children}</div>
+//             <span>{Math.random()}</span>
+//         </>
+//     );
+// }
+
+
+//场景8
+
+//  class Father extends Component {
+//     state = {
+//         count: 1,
+//     };
+//     onClick = () => {
+//         const { count } = this.state;
+//         console.log('this.state',this.state)
+//         this.setState({count:2});
+//     };
+//     render() {
+//         const { count } = this.state;
+//         console.log('father render');
+//         return (
+//             <div>
+//                 <Demo1 count={count} />
+//                 <div onClick={this.onClick}>测试</div>
+//             </div>
+//         );
+//     }
+// }
  
 // function Father() {
 //     const [count, setCount] = useState(1);
