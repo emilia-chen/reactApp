@@ -2,62 +2,72 @@ import React, { useMemo,Component,useCallback, useState,memo} from 'react';
 import logo from './logo.svg';
 import './App.css';
 //场景10
-function Father() {
-    const [count, setCount] = useState(0);
-    const [value, setValue] = useState(0);
-   
-const [data, setData]=useState({
-   name: "Peter",
-   age: 'mas'
-});
-    // const userInfo ={
-    //    name: "Peter",
-    //    age: 'mas'
-    // }
-   const test= useCallback(() => {
-      console.log('test')
-   }, []);
- const userInfo = useMemo(() => {
-   console.log('userInfo')
-  return data;
-}, [data]);
+// function Father() {
+//     const [count, setCount] = useState(0);
+//     const [value, setValue] = useState(0);
+    
+// const [data, setData]=useState({
+//    name: "Peter",
+//    age: 'mas'
+// });
+//     // const userInfo ={
+//     //    name: "Peter",
+//     //    age: 'mas'
+//     // }
+//    const test= useCallback(() => {
+//       console.log('test')
+//    }, []);
+//  const userInfo = useMemo(() => {
+//    console.log('userInfo')
+//   return data;
+// }, [data]);
 
 
-  // const [userInfo, setUserInfo] = useState({
-  //      name: "Peter",
-  //      age: 'mas'
-  // });
-    return (
-        <div>
-            <div>
-                <Demo2 test={test} userInfo={userInfo} b='44' />
-            </div>
-            <div>
-                {value}
-                <div
-                    onClick={() => {
+//   // const [userInfo, setUserInfo] = useState({
+//   //      name: "Peter",
+//   //      age: 'mas'
+//   // });
+//     return (
+//         <div>
+//             <div>
+//               <Demo3 test={test} name={userInfo.name} b='44' />
+//                 <Demo2 test={test} userInfo={userInfo} b='44' />
+//             </div>
+//             <div>
+//                 {value}
+//                 <div
+//                     onClick={() => {
                       
-              //setData({...data})
-                        setValue(value + 1);
-             //   userInfo.name='444'
+//               setData({...data})
+//               //          setValue(value + 1);
+//              //   userInfo.name='444'
 
-               // setUserInfo(userInfo)
-                    }}
-                >相册</div>
-            </div>
-        </div>
-    );
-}
-  const Demo2 = React.memo((props) => {
-   const { userInfo } = props;
-    console.log('sub render',props);
-    return (
-        <>
-            <span>{userInfo.count}</span>
-        </>
-    );
-  })
- 
+//                // setUserInfo(userInfo)
+//                     }}
+//                 >相册</div>
+//             </div>
+//         </div>
+//     );
+// }
+
+  // const Demo2 = React.memo((props) => {
+  //  const { userInfo } = props;
+  //   console.log('sub render',props);
+  //   return (
+  //       <>
+  //           <span>{userInfo.count}</span>
+  //       </>
+  //   );
+  // })
+  //  const Demo3 = React.memo((props) => {
+  //  const { name } = props;
+  //   console.log('sub render1',props);
+  //   return (
+  //       <>
+  //           <span>{name}</span>
+  //       </>
+  //   );
+  // })
 // const Demo2=function(props){
 //  const { userInfo } = props;
 //     console.log('sub render',props);
@@ -67,37 +77,43 @@ const [data, setData]=useState({
 //         </>)
 // }
 //场景9
-//  function Father() {
-//   const [count1, setCount1] = useState(0);
-//   const [count2, setCount2] = useState(0);
+const set = new Set()
+ function Father() {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
  
 
-//   const handleClickButton1 = () => {
-//     setCount1(count1 + 1);
-//   };
+  const handleClickButton1 = () => {
+    setCount1(count1 + 1);
+  };
  
+//   const userInfo = useMemo(() => {
+//    console.log('userInfo')
+//   return count1;
+// }, [count1]);
  
-//   const handleClickButton2 = useCallback(() => {
+  const handleClickButton2 = useCallback(() => {
+     console.log('useback',count2)
+    setCount2(count2 + 1);
    
-//     setCount2(count2 + 1);
-//      console.log('useback',count2)
-//   },[]);
- 
-//     // const handleClickButton2 = () => {
-//     //     setCount2(count2+ 1);
-//     // };
-//  console.log('father',count2)
-//   return (
-//     <div>
-//       <div>
-//         <Button onClickButton={handleClickButton1}>Button1</Button>
-//       </div>
-//       <div>
-//         <Button count={count2} onClickButton={handleClickButton2}>Button2</Button>
-//       </div>
-//     </div>
-//   );
-// }
+  },[]);
+ set.add(handleClickButton2);
+
+    // const handleClickButton2 = () => {
+    //     setCount2(count2+ 1);
+    // };
+ console.log('father',count2)
+  return (
+    <div>{set.size}
+      <div>
+        <Button onClickButton={handleClickButton1}>Button1</Button>
+      </div>
+      <div>
+        <Button  onClickButton={handleClickButton2}>Button2</Button>
+      </div>
+    </div>
+  );
+}
  
 //  const Button = React.memo((props) => {
 // console.log('memo',props)
@@ -111,16 +127,16 @@ const [data, setData]=useState({
 //   })
 
 
-// const Button=function(props){
-// console.log('memo')
-// const { onClickButton, children } = props;
-//     return (
-//         <>
-//             <div onClick={onClickButton}>{children}</div>
-//             <span>{Math.random()}</span>
-//         </>
-//     );
-// }
+const Button=function(props){
+console.log('memo',props)
+const { onClickButton, children } = props;
+    return (
+        <>
+            <div onClick={onClickButton}>{children}</div>
+            <span>{Math.random()}</span>
+        </>
+    );
+}
 
 
 //场景8
