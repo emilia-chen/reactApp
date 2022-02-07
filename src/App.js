@@ -1,4 +1,4 @@
-import React, { useMemo,Component,useCallback, useState,memo} from 'react';
+import React, { useRef,useMemo,Component,useCallback, useState,memo} from 'react';
 import logo from './logo.svg';
 import './App.css';
 //场景10
@@ -79,55 +79,59 @@ import './App.css';
 //场景9
 const set = new Set()
  function Father() {
+
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
- 
+ let a=useRef(1)
 
   const handleClickButton1 = () => {
     setCount1(count1 + 1);
   };
  
+
 //   const userInfo = useMemo(() => {
 //    console.log('userInfo')
 //   return count1;
 // }, [count1]);
  
-  const handleClickButton2 = useCallback(() => {
-     console.log('useback',count2)
-    setCount2(count2 + 1);
+  const handleClickButton2 = useCallback((key) => {
+     console.log('useback',count2,'key',key)
+    //setCount2(count2 + 1);
+   //test()
+   const butt=
+     (<div onClick={test}>aa</div>)
    
+   return butt
   },[]);
- set.add(handleClickButton2);
 
+  const test=()=>{
+    a=a+1;
+   //  setCount2(count2 + 1);
+   console.log('test',a)
+  }
+ set.add(handleClickButton2);
+a.current++;
     // const handleClickButton2 = () => {
     //     setCount2(count2+ 1);
     // };
- console.log('father',count2)
+ console.log('father',a.current)
   return (
-    <div>{set.size}
+    <div> {handleClickButton2(1)}
+    {set.size}---{count1}
       <div>
         <Button onClickButton={handleClickButton1}>Button1</Button>
       </div>
       <div>
-        <Button  onClickButton={handleClickButton2}>Button2</Button>
+        <Button  onClickButton={()=>{
+          handleClickButton2(1)
+        }}>Button2</Button>
+       
       </div>
     </div>
   );
 }
  
-//  const Button = React.memo((props) => {
-// console.log('memo',props)
-// const { onClickButton, children } = props;
-//     return (
-//         <>
-//             <div onClick={onClickButton}>{children}</div>
-//             <span>{Math.random()}</span>
-//         </>
-//     );
-//   })
-
-
-const Button=function(props){
+ const Button = React.memo((props) => {
 console.log('memo',props)
 const { onClickButton, children } = props;
     return (
@@ -136,7 +140,19 @@ const { onClickButton, children } = props;
             <span>{Math.random()}</span>
         </>
     );
-}
+  })
+
+
+// const Button=function(props){
+// console.log('memo',props)
+// const { onClickButton, children } = props;
+//     return (
+//         <>
+//             <div onClick={onClickButton}>{children}</div>
+//             <span>{Math.random()}</span>
+//         </>
+//     );
+// }
 
 
 //场景8
